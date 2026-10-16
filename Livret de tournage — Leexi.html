@@ -1,0 +1,442 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Livret de tournage — Leexi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f0038; --soft:#4a4a6a; --muted:#8a8aa0;
+  --accent:#7b1ad5; --accent-soft:#f3ecfb;
+  --surface:#ffffff; --white:#ffffff; --panel:#f7f7fa;
+  --border:#e3e2e8; --border-strong:#cfcdd8;
+  --alert:#b42318;
+  --radius:10px; --rlg:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--surface);line-height:1.7}
+
+.sidebar{position:fixed;top:0;left:0;width:290px;height:100vh;background:var(--ink);
+  padding:26px 14px;overflow-y:auto;z-index:100;transition:transform .3s}
+.sidebar .logo{font-size:18px;color:#fff;font-weight:700;padding:0 10px}
+.sidebar .sub{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;
+  letter-spacing:1.6px;margin:5px 0 22px;padding:0 10px}
+.nav-section{font-size:10px;color:rgba(255,255,255,.45);text-transform:uppercase;
+  letter-spacing:1.4px;padding:14px 10px 6px;font-weight:700}
+.sidebar a{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;margin-bottom:1px;
+  color:rgba(255,255,255,.62);text-decoration:none;font-size:13px;font-weight:400;
+  border-radius:6px;line-height:1.4;transition:.15s}
+.sidebar a:hover,.sidebar a.active{background:rgba(255,255,255,.08);color:#fff}
+.sidebar .n{font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.35);min-width:20px;flex-shrink:0}
+.sidebar .div{height:1px;background:rgba(255,255,255,.1);margin:14px 10px}
+.toggle{display:none;position:fixed;top:12px;left:12px;z-index:200;background:var(--ink);
+  color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:18px;cursor:pointer}
+
+.main{margin-left:290px;min-height:100vh}
+.hero{background:var(--ink);padding:56px 50px 48px}
+.hero-c{max-width:760px}
+.badge{display:inline-block;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;
+  letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-size:clamp(28px,4vw,40px);color:#fff;font-weight:700;line-height:1.2;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:#fff}
+.hero-c>p{font-size:16px;color:rgba(255,255,255,.6);max-width:600px;margin-bottom:26px}
+.hero-tags{display:flex;gap:10px;flex-wrap:wrap}
+.hero-tags span{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.75);
+  font-size:12.5px;background:rgba(255,255,255,.07);border-radius:6px;padding:6px 12px}
+.hero-tags .ic{font-size:13px;opacity:.75}
+
+.content{max-width:800px;margin:0 auto;padding:44px 32px 100px}
+.ch{margin-bottom:52px;scroll-margin-top:20px}
+.ch-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.ch-num{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--muted);
+  flex-shrink:0}
+.ch h2{font-size:23px;font-weight:700;line-height:1.25}
+.card{background:var(--white);border-radius:var(--rlg);padding:30px;border:1px solid var(--border)}
+.card p{margin-bottom:14px;color:var(--soft);font-size:15px}
+.card p:last-child{margin-bottom:0}
+.card strong{color:var(--ink);font-weight:600}
+.card h3{font-size:18px;font-weight:700;color:var(--ink);margin:34px 0 12px;
+  padding-top:18px;border-top:1px solid var(--border)}
+.card h3:first-child{margin-top:0;padding-top:0;border-top:none}
+.card h4{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.1px;
+  text-transform:uppercase;margin:20px 0 8px}
+.card ul{margin:10px 0 14px 20px;color:var(--soft);font-size:15px}
+.card li{margin-bottom:6px}
+.card a{color:var(--accent);font-weight:600}
+
+.analogy,.prereq,.warning-big{background:var(--panel);border-radius:var(--radius);
+  padding:18px 22px;margin:18px 0;border:1px solid var(--border);border-left:3px solid var(--border-strong)}
+.warning-big{border-left-color:var(--alert)}
+.analogy .al,.prereq .pl,.warning-big .wl{font-weight:700;color:var(--ink);font-size:12px;
+  letter-spacing:.6px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.warning-big .wl{color:var(--alert)}
+.analogy p,.prereq p,.prereq li,.warning-big p{font-size:14.5px;color:var(--soft);margin:0}
+.prereq ul{list-style:none;padding:0;margin:6px 0 0}
+.prereq li{padding:5px 0 5px 22px;position:relative}
+.prereq li::before{content:'\2610';position:absolute;left:0;color:var(--muted)}
+
+.steps{counter-reset:s;list-style:none;padding:0;margin:16px 0}
+.steps li{counter-increment:s;position:relative;padding:12px 14px 12px 46px;margin-bottom:6px;
+  background:var(--white);border-radius:var(--radius);border:1px solid var(--border);
+  font-size:14.5px;color:var(--soft)}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:14px;
+  color:var(--muted);font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.steps li strong{color:var(--ink)}
+
+.tw{overflow-x:auto;margin:16px 0;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+thead{background:var(--panel)}
+thead th{padding:11px 14px;text-align:left;color:var(--ink);font-weight:700;font-size:11px;
+  text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;border-bottom:1px solid var(--border-strong)}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+.vide{color:var(--muted);font-style:italic;font-size:12px}
+.cap{font-size:12.5px;color:var(--muted);margin:-6px 0 16px}
+
+.tip{display:flex;gap:12px;padding:16px 20px;border-radius:var(--radius);margin:16px 0;
+  background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--border-strong)}
+.tip.warn,.tip.err{border-left-color:var(--alert)}
+.tip-i{font-size:16px;flex-shrink:0;margin-top:1px;opacity:.8}
+.tip-c{font-size:14px;color:var(--soft)}
+.tip-c strong{color:var(--ink)}
+.tip-c>strong:first-child{display:block;margin-bottom:3px}
+
+.vg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:16px 0}
+.vc{background:var(--white);border-radius:var(--radius);padding:16px;border:1px solid var(--border)}
+.vc .vt{font-weight:700;color:var(--ink);font-size:14px;margin-bottom:4px}
+.vc .vd{font-size:13px;color:var(--soft)}
+.vc .ve{font-size:12px;color:var(--muted);margin-top:5px}
+
+.flow{display:flex;align-items:center;gap:0;margin:20px 0;flex-wrap:wrap;justify-content:center}
+.flow-node{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  padding:12px 18px;text-align:center;min-width:120px}
+.flow-node .fl{font-size:20px;margin-bottom:4px;opacity:.8}
+.flow-node .fn2{font-weight:700;font-size:13px;color:var(--ink)}
+.flow-node .fd{font-size:11px;color:var(--muted)}
+.flow-arrow{font-size:18px;color:var(--muted);padding:0 8px;flex-shrink:0}
+
+.cbx{margin:16px 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
+.cbx-h{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:9px 14px;border-bottom:1px solid var(--border)}
+.cbx-l{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.7px}
+.cbx-b{background:var(--white);color:var(--ink);border:1px solid var(--border-strong);border-radius:6px;
+  padding:5px 13px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0}
+.cbx-b:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.cbx-b.done{color:var(--accent);border-color:var(--accent)}
+.cbx-p{padding:14px 16px;margin:0;color:var(--ink);font-family:'JetBrains Mono',monospace;
+  font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;max-height:420px;overflow-y:auto}
+
+.dlb{display:flex;align-items:center;gap:14px;text-decoration:none;margin:14px 0;width:100%;
+  text-align:left;font-family:inherit;cursor:pointer;
+  background:var(--white);border:1px solid var(--accent);border-radius:var(--radius);
+  padding:14px 18px;transition:.15s}
+.dlb[disabled]{opacity:.5;cursor:default;border-color:var(--border)}
+.dlb:hover{background:var(--accent-soft)}
+.dlb-i{flex-shrink:0;width:34px;height:34px;border-radius:8px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+.dlb-t{display:flex;flex-direction:column;min-width:0}
+.dlb-t b{color:var(--ink);font-size:14.5px;font-weight:700}
+.dlb-t span{color:var(--muted);font-size:12.5px}
+
+.footer{text-align:center;padding:36px;color:var(--muted);font-size:12.5px;
+  border-top:1px solid var(--border);margin-top:36px}
+
+@media (max-width:800px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .toggle{display:block}
+  .main{margin-left:0}
+  .hero{padding:68px 20px 40px}
+  .content{padding:28px 16px 60px}
+  .card{padding:20px}
+  .flow{flex-direction:column}
+  .flow-arrow{transform:rotate(90deg)}
+}
+@media print{
+  .sidebar,.toggle,.cbx-b,.dlb{display:none !important}
+  .main{margin-left:0 !important}
+  .hero{background:#fff;color:#000;padding:0 0 24px}
+  .hero h1,.hero h1 em{color:#000}
+  .hero-c>p,.badge,.hero-tags span{color:#333}
+  .ch,.lec{break-inside:avoid}
+  .card{border:1px solid #ddd}
+}
+</style>
+
+<style>
+.lec{border:1px solid var(--border);border-radius:var(--rlg);margin:22px 0;overflow:hidden;
+  scroll-margin-top:20px}
+.lec-h{display:flex;align-items:baseline;gap:12px;padding:15px 20px;background:var(--panel);
+  border-bottom:1px solid var(--border);flex-wrap:wrap}
+.lec-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+  color:var(--muted);flex-shrink:0}
+.lec-t{font-weight:700;font-size:16.5px;color:var(--ink);flex:1 1 180px;min-width:0}
+.lec-d{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);flex-shrink:0}
+.lec-b{padding:22px 20px}
+.lec-b>p{font-size:15px}
+.say{border-left:3px solid var(--accent);padding:2px 0 2px 16px;margin:0 0 20px}
+.say .sl{font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);
+  font-weight:700;margin-bottom:5px}
+.say p{color:var(--ink);font-size:15.5px;margin:0;font-style:italic;line-height:1.6}
+.ecr{display:grid;grid-template-columns:auto 1fr;gap:9px 18px;margin:18px 0;align-items:baseline;
+  padding:16px 18px;background:var(--panel);border-radius:var(--radius)}
+.ecr dt{font-size:10.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);
+  font-weight:700;white-space:nowrap}
+.ecr dd{margin:0;font-size:14.5px;color:var(--soft)}
+.ecr dd b{color:var(--ink)}
+@media (max-width:560px){.ecr{grid-template-columns:1fr;gap:2px}.ecr dd{margin-bottom:10px}}
+.clics{counter-reset:k;list-style:none;padding:0;margin:10px 0 4px}
+.clics li{counter-increment:k;position:relative;padding:8px 0 8px 34px;
+  border-bottom:1px solid var(--border);font-size:14.5px;color:var(--soft);line-height:1.6}
+.clics li:last-child{border-bottom:none}
+.clics li::before{content:counter(k);position:absolute;left:0;top:8px;
+  color:var(--muted);font-size:11.5px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.clics li b{color:var(--ink)}
+.hc2{font-size:13.5px;color:var(--muted);border-top:1px solid var(--border);
+  padding-top:12px;margin-top:16px}
+.hc2 b{color:var(--soft)}
+</style>
+
+<style>.ch{margin-bottom:0}#prepa{scroll-margin-top:20px}</style>
+
+<button class="toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+
+<nav class="sidebar">
+  <div class="logo">🎙️ Leexi</div>
+  <div class="sub">Livret de tournage · Studeria</div>
+  <div class="nav-section">🎬 Avant de tourner</div>
+  <a href="#prepa"><span class="n">•</span>Le plateau et les données</a>
+  <div class="div"></div>
+  <div class="nav-section">📖 Les leçons</div>
+  <a href="#L01"><span class="n">01</span>À quoi sert Leexi, et ce que ça coûte</a>
+  <a href="#L02"><span class="n">02</span>Informer, pas faire signer</a>
+  <a href="#L03"><span class="n">03</span>Capter le rendez-vous</a>
+  <a href="#L04"><span class="n">04</span>Lire la transcription</a>
+  <a href="#L05"><span class="n">05</span>Sortir les décisions et les actions</a>
+  <a href="#L06"><span class="n">06</span>Le compte rendu à envoyer</a>
+  <a href="#L07"><span class="n">07</span>Limites et checklist</a>
+</nav>
+
+<div class="main">
+<div class="hero"><div class="hero-c">
+  <span class="badge">🎬 Focus outils · Outil 7</span>
+  <h1>Tourner le chapitre <em>Leexi</em></h1>
+  <p>7 leçons, 47 min. Ce qui se dit en rendez-vous devient du texte exploitable, sans prendre de notes.</p>
+  <div class="hero-tags"><span><span class="ic">📋</span>7 leçons · 47 min</span><span><span class="ic">🔑</span>Essai 7 jours</span><span><span class="ic">⏱️</span>1 h 15 de préparation</span><span><span class="ic">📊</span>1 enregistrement à jouer</span></div>
+</div></div>
+
+<div class="content">
+<div class="ch" id="prepa">
+  <div class="card">
+<p><strong>7 leçons, 47 min.</strong> Capsule courte. Le cas pratique : on sort d'un rendez-vous
+client, on a griffonné trois lignes et on a déjà oublié le reste. On transforme l'enregistrement en
+compte rendu, en actions, et en matière pour la proposition.</p>
+
+<div class="tip info"><span class="tip-i">🎬</span><div class="tip-c"><strong>Comment se servir de ce chapitre le jour du tournage</strong>
+Une fiche par leçon. <strong>Tout est fourni</strong> : le script du rendez-vous à jouer, le modèle
+de compte rendu, la checklist. Les trois fichiers sont plus bas, avec leur bouton.</div></div>
+
+<div class="warning-big"><div class="wl">⏳ Sept jours d'essai, et ils comptent</div>
+<p>Leexi propose un <strong>essai gratuit de 7 jours</strong> sur toute la suite Leexi One. Il n'y a
+donc aucun blocage : l'apprenant peut refaire la capsule entière. Mais sept jours c'est court —
+<strong>ouvrir l'essai le jour où on attaque le tournage, pas trois semaines avant</strong>, et
+enchaîner les sept leçons dans la foulée.</p>
+<p>Au-delà, c'est un abonnement : le premier plan démarre à <strong>12 $ par licence et par mois en
+annuel</strong>, et <strong>il n'y a pas de palier gratuit permanent</strong>. Une licence
+« Invité » gratuite existe à l'intérieur d'un espace déjà payant, mais <strong>elle ne transcrit pas
+vos propres réunions</strong> — les deux informations se disent ensemble.</p></div>
+
+<div class="warning-big"><div class="wl">🖐️ Ce qui est préparé, et ce qui se fait devant la caméra</div>
+<p>L'<strong>enregistrement de 15 minutes</strong> est joué et enregistré <strong>avant</strong> : il
+ne se fait pas en direct. Le reste — déposer le fichier, chercher dans la transcription, trier les
+décisions, corriger le compte rendu, supprimer l'enregistrement — se fait à l'écran.</p></div>
+
+<h3>À avoir sur le plateau avant de commencer</h3>
+<div class="prereq"><div class="pl">🔑 Comptes, fichiers, onglets</div>
+<ul>
+  <li>L'<strong>essai gratuit de 7 jours</strong>, ouvert le jour où l'on commence à tourner</li>
+  <li>L'<strong>enregistrement de 15 minutes</strong>, deux voix, joué et enregistré à l'avance —
+    le script est fourni plus bas</li>
+  <li>Un <strong>rendez-vous de test dans l'agenda connecté</strong>, pour montrer le bot qui
+    rejoint la visio en leçon 3</li>
+  <li>Onglet : la page de tarifs Leexi — pour la leçon 1</li>
+  <li>Onglet : la page de la CNIL
+    <a href="https://www.cnil.fr/fr/lecoute-et-lenregistrement-des-appels-sur-le-lieu-de-travail" target="_blank">« L'écoute et l'enregistrement des appels sur le lieu de travail »</a>
+    — <strong>le lien est prêt</strong>, pour la citer correctement en leçon 2 plutôt que de citer
+    un délai de mémoire</li>
+  <li>Les <strong>réglages du compte</strong> ouverts, pour la leçon 7</li>
+</ul></div>
+
+<h3>Les fichiers à télécharger</h3>
+<button class="dlb" id="f82" data-nom="LEEXI-feuille-de-regie.md" onclick="tele(this)"><span class="dlb-i">⬇</span><span class="dlb-t"><b>La feuille de régie de l&#x27;enregistrement</b><span>Une page à poser devant les deux voix : les 4 phrases à dire mot pour mot, le minutage, et la vérification après coup · LEEXI-feuille-de-regie.md · 2 Ko</span></span><script type="application/octet-stream" id="b82">IyBGZXVpbGxlIGRlIHLDqWdpZSDigJQgbCdlbnJlZ2lzdHJlbWVudCBkZSAxNSBtaW51dGVzCgrDgCBpbXByaW1lciBldCDDoCBwb3NlciBkZXZhbnQgbGVzIGRldXggcGVyc29ubmVzIHBlbmRhbnQgbCdlbnJlZ2lzdHJlbWVudC4KQ2Ugbidlc3QgcGFzIGxlIHNjcmlwdCA6IGMnZXN0IGwnYWlkZS1tw6ltb2lyZSBkZXMgY2hvc2VzIHF1aSBET0lWRU5UIHRvbWJlci4KClLDtGxlcyA6ICoqQyoqID0gbGUgY29uc3VsdGFudCAoY2VsdWkgcXVpIHRvdXJuZSkgwrcgKipIKiogPSBIw6lsw6huZSBWYXNzZXVyIChkZXV4acOobWUgdm9peCkKRGV1eCBtaWNyb3Mgc8OpcGFyw6lzLiBEZXV4IHZvaXggZGlzdGluY3Rlcy4gT24gbidhcnLDqnRlIHBhcyBlbnRyZSBsZXMgc8OpcXVlbmNlcy4KCi0tLQoKIyMgTGVzIHF1YXRyZSBwaHJhc2VzIMOgIGRpcmUgTU9UIFBPVVIgTU9UCgpDZSBzb250IGVsbGVzIHF1ZSBsZXMgbGXDp29ucyA1IGV0IDcgdm9udCBjaGVyY2hlci4gVG91dCBsZSByZXN0ZSBzJ2ltcHJvdmlzZS4KCnwgIyB8IFF1aSB8IFZlcnMgfCBMYSBwaHJhc2UgfAp8IC0gfCAtLS0gfCAtLS0tIHwgLS0tLS0tLS0tIHwKfCAxIHwgSCB8IDU6MDAgfCDCqyBPbiBwYXJ0IHN1ciB1bmUgbWlzZSBlbiBwbGFjZSBlbiBub3ZlbWJyZS4gwrsgfAp8IDIgfCBDIHwgNTowMCB8IMKrIEMnZXN0IFNvZmlhIHF1aSBzZXJhIHZvdHJlIGludGVybG9jdXRyaWNlLiDCuyB8CnwgMyB8IEggfCA4OjAwIHwgwqsgT3VpIHBvdXIgbGEgZm9ybWF0aW9uLCBlbmZpbiBmYXVkcmEgcXUnb24gZW4gcmVwYXJsZSBhdSBidWRnZXQuIMK7IHwKfCA0IHwgSCB8IDEzOjAwIHwgbGUgcGFzc2FnZSBzdXIgbCdhcnLDqnQgZGUgdHJhdmFpbCBkZSBMdWRvdmljIHwKCkxhIHBocmFzZSAzIGVzdCAqKmxhIHBsdXMgaW1wb3J0YW50ZSBkdSBjaGFwaXRyZSoqLiBFbGxlIGRvaXQgc29ubmVyIGNvbW1lIHVuIGFjY29yZCwKYXZlYyBsJ2jDqXNpdGF0aW9uIGV0IGxhIGNvbmRpdGlvbiBxdWkgc3VpdmVudC4gU2kgZWxsZSBlc3QgZGl0ZSB0cm9wIG5ldHRlbWVudCwgbGEKbGXDp29uIDUgbidhIHBsdXMgcmllbiDDoCBjb3JyaWdlci4KCi0tLQoKIyMgTGUgbWludXRhZ2UKCmBgYAowOjAwICAgQyBpbmZvcm1lIHF1J2lsIGVucmVnaXN0cmUuIEggZGl0IG91aS4KICAgICAgIFByw6lzZW50YXRpb24gOiAxMSBwZXJzb25uZXMsIGFnZW5jZW1lbnQgc3VyIG1lc3VyZSwgcmVwcmlzZSBpbCB5IGEgNiBhbnMuCgoyOjAwICAgSCByYWNvbnRlIHNvbiBwcm9ibMOobWUgRU4gRMOJU09SRFJFLiBFbGxlIHNlIGNvdXBlLCBlbGxlIHJldmllbnQgZW4gYXJyacOocmUuCiAgICAgICBMZXMgZmV1aWxsZXMgZGUgY2hhbnRpZXIsIGxhIHJlc3NhaXNpZSBkdSB2ZW5kcmVkaS4KCjU6MDAgICDirJsgUEhSQVNFIDEg4oCUIMKrIG9uIHBhcnQgc3VyIHVuZSBtaXNlIGVuIHBsYWNlIGVuIG5vdmVtYnJlIMK7CiAgICAgICDirJsgUEhSQVNFIDIg4oCUIMKrIGMnZXN0IFNvZmlhIHF1aSBzZXJhIHZvdHJlIGludGVybG9jdXRyaWNlIMK7CiAgICAgICBEZXV4IGTDqWNpc2lvbnMgbmV0dGVzLiBFbGxlcyBkb2l2ZW50IMOqdHJlIGNsYWlyZXMsIGRhdMOpZXMsIGF0dHJpYnXDqWVzLgoKODowMCAgIOKsmyBQSFJBU0UgMyDigJQgwqsgb3VpIHBvdXIgbGEgZm9ybWF0aW9uLCBlbmZpbiBmYXVkcmEgcXUnb24gZW4gcmVwYXJsZSBhdSBidWRnZXQgwrsKICAgICAgIFB1aXMgSCBleHBsaXF1ZSA6IHRyb3UgZGUgdHLDqXNvcmVyaWUganVzcXUnw6AgbWktbm92ZW1icmUuCgoxMTowMCAgVHJvaXMgYWN0aW9ucy4gQXR0ZW50aW9uIDoKICAgICAgICAgLSB1bmUgU0FOUyDDiUNIw4lBTkNFICAgKG9uIG5lIGRpdCBwYXMgcXVhbmQpCiAgICAgICAgIC0gdW5lIFNBTlMgUFJPUFJJw4lUQUlSRSAob24gbmUgZGl0IHBhcyBxdWkpCiAgICAgICBDZXMgZGV1eCB0cm91cyBzb250IHZvbG9udGFpcmVzIDogYydlc3QgY2UgcXUnb24gY29ycmlnZSBlbiBsZcOnb24gNi4KCjEzOjAwICDirJsgUEhSQVNFIDQg4oCUIGxlIHBhc3NhZ2UgcGVyc29ubmVsCiAgICAgICBIIMOpdm9xdWUgbCdhcnLDqnQgZGUgdHJhdmFpbCBkZSBMdWRvdmljLCBzb24gY2hlZiBkJ2F0ZWxpZXIsIGV0IGxhIHLDqcOpZHVjYXRpb24uCiAgICAgICBDJ2VzdCBjZSBxdWkgTkUgU0VSQSBQQVMgcmVjb3Bpw6kgZGFucyBsZSBjb21wdGUgcmVuZHUsIGVuIGxlw6dvbiA3LgoKMTU6MDAgIEZpbi4gQyBhbm5vbmNlIHF1J2lsIGVudm9pZSBsZSBjb21wdGUgcmVuZHUuCmBgYAoKLS0tCgojIyBDZSBxdSdpbCBmYXV0IGdhcmRlciwgZXQgY2UgcXUnaWwgZmF1dCDDqXZpdGVyCgoqKkdhcmRlcioqIDogbGVzIGjDqXNpdGF0aW9ucywgbGVzIMKrIGR1IGNvdXAgwrssIGxlcyByZXByaXNlcywgbGVzIHBocmFzZXMgcXVpIHMnYXJyw6p0ZW50IGF1Cm1pbGlldS4gVW5lIHRyYW5zY3JpcHRpb24gdHJvcCBwcm9wcmUgbmUgcmVzc2VtYmxlIMOgIHJpZW4gZGUgcsOpZWwgZXQgbGEgbGXDp29uIDQgcGVyZCBzb24KaW50w6lyw6p0LgoKKirDiXZpdGVyKiogOiByw6ljaXRlciBsZSBzY3JpcHQuIExpcmUgw6Agdm9peCBoYXV0ZSBzJ2VudGVuZCBpbW3DqWRpYXRlbWVudCDDoCBsYSB0cmFuc2NyaXB0aW9uLgoKKipWw6lyaWZpZXIgYXByw6hzIGwnZW5yZWdpc3RyZW1lbnQsIGF2YW50IGRlIHBhc3NlciBhdSB0b3VybmFnZSA6KioKClsgXSBMZXMgZGV1eCB2b2l4IHNvbnQgYmllbiBzw6lwYXLDqWVzIHBhciBMZWV4aQpbIF0gTGEgcGhyYXNlIDMgZXN0IGRhbnMgbGEgdHJhbnNjcmlwdGlvbiwgdGVsbGUgcXVlbGxlClsgXSBMZSBwYXNzYWdlIGRlIDEzOjAwIGVzdCBkYW5zIGxhIHRyYW5zY3JpcHRpb24KWyBdIExlcyBkZXV4IGTDqWNpc2lvbnMgZGUgNTowMCBzb250IG5ldHRlcwpbIF0gVW5lIGFjdGlvbiBlc3QgYmllbiBzYW5zIMOpY2jDqWFuY2UsIHVuZSBhdXRyZSBzYW5zIHByb3ByacOpdGFpcmUK</script></button><button class="dlb" id="f83" data-nom="LEEXI-script-rendez-vous-15min.md" onclick="tele(this)"><span class="dlb-i">⬇</span><span class="dlb-t"><b>Le script du rendez-vous à jouer</b><span>15 minutes, deux voix, minuté — avec les quatre phrases à dire mot pour mot · LEEXI-script-rendez-vous-15min.md · 8 Ko</span></span><script type="application/octet-stream" id="b83">IyBMZSByZW5kZXotdm91cyDDoCBqb3VlciDigJQgc2NyaXB0IG1pbnV0w6kKCjE1IG1pbnV0ZXMsIGRldXggdm9peC4gKipDJ2VzdCBsYSBwacOoY2UgbWHDrnRyZXNzZSBkZSBsYSBjYXBzdWxlIDogdG91dCBsZSByZXN0ZSBlbgpkw6ljb3VsZS4qKiBFbnJlZ2lzdHLDqSDDoCBsJ2F2YW5jZSwgZMOpcG9zw6kgZGFucyBMZWV4aSBlbiBsZcOnb24gMy4KCiMjIExlcyBkZXV4IHLDtGxlcwoKfCBSw7RsZSB8IFF1aSBwYXJsZSB8IFRvbiB8CnwgOi0tIHwgOi0tIHwgOi0tIHwKfCAqKkMqKiDigJQgbGUgY29uc3VsdGFudCB8IGxhIHBlcnNvbm5lIHF1aSB0b3VybmUgfCBjYWxtZSwgcG9zZSBkZXMgcXVlc3Rpb25zLCBuZSB2ZW5kIHBhcyB8CnwgKipIKiog4oCUIEjDqWzDqG5lIFZhc3NldXIsIE1lbnVpc2VyaWUgVmFzc2V1ciB8IHVuZSBkZXV4acOobWUgdm9peCB8IGTDqWJpdCByYXBpZGUsIHNlIGNvdXBlLCByZXZpZW50IGVuIGFycmnDqHJlIHwKCkRldXggdm9peCAqKmRpc3RpbmN0ZXMqKiA6IGMnZXN0IGNlIHF1ZSBMZWV4aSBzw6lwYXJlLCBldCB1bmUgY2Fwc3VsZSBvw7kgbGVzIGRldXggdm9peCBzZQpyZXNzZW1ibGVudCByZW5kIGxhIGxlw6dvbiA0IGlsbGlzaWJsZS4KCiMjIENvbW1lbnQgbCdlbnJlZ2lzdHJlcgoKLSBFbiB2aXNpbywgY2hhY3VuIHN1ciBzb24gbWljcm8g4oCUIHBhcyBkZXV4IHBlcnNvbm5lcyBzdXIgbGUgbcOqbWUgbWljcm8uCi0gKipOZSBwYXMgcsOpY2l0ZXIuKiogTGUgc2NyaXB0IGRvbm5lIGxlcyBwb2ludHMgZGUgcGFzc2FnZSBldCBsZXMgcGhyYXNlcyBxdWkgZG9pdmVudAogIHRvbWJlciBleGFjdGVtZW50IDsgbGUgcmVzdGUgcydpbXByb3Zpc2UgYXV0b3VyLgotIExlcyBow6lzaXRhdGlvbnMsIGxlcyByZXByaXNlcyBldCBsZXMgwqsgZHUgY291cCDCuyBzZSBnYXJkZW50LiBVbmUgdHJhbnNjcmlwdGlvbiBwcm9wcmUgbmUKICByZXNzZW1ibGUgw6AgcmllbiBkZSByw6llbC4KLSAqKkxlcyBxdWF0cmUgcGhyYXNlcyBlbiBncmFzIGRhbnMgbGUgc2NyaXB0IHNlIGRpc2VudCBtb3QgcG91ciBtb3QuKiogQ2Ugc29udCBlbGxlcyBxdWUKICBsZXMgbGXDp29ucyA1IGV0IDcgdm9udCBjaGVyY2hlci4KCi0tLQoKIyMgMDowMCDigJQgUHLDqXNlbnRhdGlvbiBldCBjb250ZXh0ZQoKKipDKiog4oCUIEJvbmpvdXIgSMOpbMOobmUsIG1lcmNpIGRlIHByZW5kcmUgbGUgdGVtcHMuIEF2YW50IHF1J29uIGNvbW1lbmNlIDogaidlbnJlZ2lzdHJlIG5vcwrDqWNoYW5nZXMgcG91ciBuZSBwYXMgcHJlbmRyZSBkZSBub3RlcyBldCB2b3VzIGVudm95ZXIgdW4gY29tcHRlIHJlbmR1IGZpZMOobGUuCkwnZW5yZWdpc3RyZW1lbnQgbWUgc2VydCB1bmlxdWVtZW50IMOgIMOnYSwgamUgbGUgc3VwcHJpbWUgdW5lIGZvaXMgbGUgY29tcHRlIHJlbmR1IHLDqWRpZ8OpLgpTaSB2b3VzIHByw6lmw6lyZXogcXVlIGplIG4nZW5yZWdpc3RyZSBwYXMsIGRpdGVzLWxlIG1haW50ZW5hbnQsIGplIGNvdXBlIGV0IGplIHByZW5kcyBkZXMKbm90ZXMuCgoqKkgqKiDigJQgTm9uIG5vbiwgYWxsZXoteSwgYydlc3QgdHLDqHMgYmllbi4KCioqQyoqIOKAlCBQYXJmYWl0LiBBbG9ycywgcmFjb250ZXotbW9pLiBWb3VzIMOqdGVzIGNvbWJpZW4gYXVqb3VyZCdodWkgPwoKKipIKiog4oCUIEFsb3JzLiBPbiBlc3Qgb256ZS4gRW5maW4sIG9uemUgYXZlYyBtb2ksIGRvbmMgZGl4IMOgIGwnYXRlbGllciBldCBzdXIgbGVzCmNoYW50aWVycy4gTW9uIHDDqHJlIGEgbW9udMOpIGxhIGJvw650ZSBlbiA5NCwgbW9pIGonYWkgcmVwcmlzIGlsIHkgYSBzaXggYW5zLiBPbiBmYWl0IGRlCmwnYWdlbmNlbWVudCBzdXIgbWVzdXJlLCBlc3NlbnRpZWxsZW1lbnQgZHUgcHJvZmVzc2lvbm5lbCDigJQgZGVzIGJvdXRpcXVlcywgZGVzIGNhYmluZXRzLAp1biBwZXUgZCdow7R0ZWxsZXJpZSBkZXB1aXMgZGV1eCBhbnMuCgoqKkMqKiDigJQgRXQgw6dhIG1hcmNoZSA/CgoqKkgqKiDigJQgw4dhIG1hcmNoZSwgYydlc3QgYmllbiDDp2EgbGUgcHJvYmzDqG1lLiBFbiAyMDE5IG9uIMOpdGFpdCBjaW5xLCBvbiB0ZW5haXQgdG91dCBhdmVjIHVuCnRhYmxlYXUgYXUgbXVyLiBBdWpvdXJkJ2h1aSBvbiBlc3Qgb256ZSBldCBvbiBhIHRvdWpvdXJzIGxlIHRhYmxlYXUgYXUgbXVyLgoKLS0tCgojIyAyOjAwIOKAlCBMZSBiZXNvaW4sIHVuIHBldSBlbiBkw6lzb3JkcmUKCioqSCoqIOKAlCBDZSBxdWkgbWUgZmF0aWd1ZSBsZSBwbHVzIGMnZXN04oCmIGF0dGVuZGV6LCBqZSB2YWlzIGxlIGRpcmUgZGFucyBsJ29yZHJlLiBFbmZpbiBqZQp2YWlzIGVzc2F5ZXIuIERvbmMsIGxlcyBnYXJzIHBhcnRlbnQgc3VyIGxlcyBjaGFudGllcnMgbGUgbWF0aW4uIElscyBvbnQgbGV1ciBmZXVpbGxlLCBpbHMKbm90ZW50IGNlIHF1J2lscyBvbnQgZmFpdCwgaWxzIHJhbcOobmVudCBsYSBmZXVpbGxlIGxlIHNvaXIg4oCUIHF1YW5kIGlscyBsYSByYW3DqG5lbnQuIEV0IG1vaQpsZSB2ZW5kcmVkaSBqZSByZXNzYWlzaXMgdG91dCBwb3VyIGxhIGZhY3R1cmF0aW9uLgoKKipDKiog4oCUIFRvdXQsIGMnZXN0LcOgLWRpcmUgPwoKKipIKiog4oCUIExlcyBoZXVyZXMsIGxlcyBjaGFudGllcnMsIGxlcyBmb3Vybml0dXJlcyBzb3J0aWVzIGRlIGwnYXRlbGllci4gVHJvaXMgaGV1cmVzIHRvdXMKbGVzIHZlbmRyZWRpcy4gRXQgZW5jb3JlLCB0cm9pcyBoZXVyZXMgcXVhbmQgbGVzIGZldWlsbGVzIHNvbnQgbMOgLiBJbCB5IGEgZGVzIHNlbWFpbmVzIG/DuQpqJ2VuIGNvdXJzIGFwcsOocyBkZXV4IG91IHRyb2lzLCBldCBsw6DigKYgYm9uLgoKKipDKiog4oCUIEV0IGxlcyBkZXZpcyA/CgoqKkgqKiDigJQgQWgsIGxlcyBkZXZpcyBjJ2VzdCBhdXRyZSBjaG9zZS4gw4dhIGMnZXN0IGVuY29yZSBwaXJlLiBOb24sIHBhcyBwaXJlLiBEaWZmw6lyZW50LgpMZXMgZGV2aXMgamUgbGVzIGZhaXMgbGUgc29pciBjaGV6IG1vaSwgcGFyY2UgcXVlIGRhbnMgbGEgam91cm7DqWUgamUgbidhaSBwYXMgbGUgdGVtcHMuCkV0IGxlIHByb2Jsw6htZSBjZSBuJ2VzdCBwYXMgZGUgbGVzIGZhaXJlLCBjJ2VzdCBkZSBzYXZvaXIgb8O5IGlscyBlbiBzb250LiBRdWkgYSByw6lwb25kdSwKcXVpIG4nYSBwYXMgcsOpcG9uZHUsIHF1aSBqJ2FpIHJlbGFuY8OpLiBKJ2FpIHVuIGNhcm5ldC4gSmUgbmUgdmFpcyBwYXMgdm91cyBtZW50aXIsIGMnZXN0CnVuIGNhcm5ldC4KCioqQyoqIOKAlCBFdCBjZSBjYXJuZXQsIGlsIHZvdXMgc2VydCA/CgoqKkgqKiDigJQgSWwgbWUgc2VydCBqdXNxdSdhdSBtb21lbnQgb8O5IGlsIG5lIG1lIHNlcnQgcGx1cy4gTGUgbW9pcyBkZXJuaWVyIGonYWkgcmVsYW5jw6kKcXVlbHF1J3VuIHF1aSBhdmFpdCBzaWduw6kgdHJvaXMgc2VtYWluZXMgYXZhbnQuIERldmFudCBzb24gw6lxdWlwZS4gVm9pbMOgLgoKLS0tCgojIyA1OjAwIOKAlCBMZXMgZGV1eCBkw6ljaXNpb25zCgoqKkMqKiDigJQgU2kgamUgcsOpc3VtZSA6IGxhIHNhaXNpZSBkZXMgaGV1cmVzIGQndW4gY8O0dMOpLCBsZSBzdWl2aSBkZXMgZGV2aXMgZGUgbCdhdXRyZS4gTGVzCmRldXggY29tcHRlbnQsIG1haXMgaWxzIG5lIHNlIHLDqGdsZW50IHBhcyBlbiBtw6ptZSB0ZW1wcy4gUGFyIGxlcXVlbCB2b3VzIHZvdWxlegpjb21tZW5jZXIgPwoKKipIKiog4oCUIExlcyBoZXVyZXMuIFBhcmNlIHF1ZSBjJ2VzdCB0b3V0ZXMgbGVzIHNlbWFpbmVzLCBldCBwYXJjZSBxdWUgYydlc3QgbW9pIHF1aSBsZXMKZmFpcy4gTGVzIGRldmlzIGplIHBldXggdGVuaXIgZW5jb3JlIHVuIHBldS4KCioqQyoqIOKAlCBEJ2FjY29yZC4gU3VyIGxlIGNhbGVuZHJpZXIsIGTDqWNlbWJyZSBjJ2VzdCBjb21wbGlxdcOpIGNoZXogdm91cyA/CgoqKkgqKiDigJQgRMOpY2VtYnJlIGMnZXN0IG1vcnQsIHRvdXQgbGUgbW9uZGUgdmV1dCDDqnRyZSBsaXZyw6kgYXZhbnQgTm/Dq2wuIEphbnZpZXIgYydlc3QKY2FsbWUuCgoqKkMqKiDigJQgRG9uYyBzb2l0IG9uIG1ldCBlbiBwbGFjZSBlbiBub3ZlbWJyZSwgc29pdCBvbiBhdHRlbmQgamFudmllci4KCioqSCoqIOKAlCBOb24sIG5vdmVtYnJlLiBTaSBvbiBhdHRlbmQgamFudmllciBqZSB2YWlzIGVuY29yZSBmYWlyZSBkZXV4IG1vaXMgZGUgdmVuZHJlZGlzLgoqKk9uIHBhcnQgc3VyIHVuZSBtaXNlIGVuIHBsYWNlIGVuIG5vdmVtYnJlLioqCgoqKkMqKiDigJQgVHLDqHMgYmllbiwgYydlc3Qgbm90w6kuIEV0IHN1ciBsJ2FjY29tcGFnbmVtZW50LCB2b3VzIG4nYXVyZXogcGFzIGFmZmFpcmUgcXUnw6AgbW9pLgoqKkMnZXN0IFNvZmlhIHF1aSBzZXJhIHZvdHJlIGludGVybG9jdXRyaWNlKiogc3VyIGxhIHBhcnRpZSBtaXNlIGVuIHBsYWNlLCBtb2kgamUgcmVzdGUgc3VyCmxlIGNhZHJhZ2UgZXQgamUgcmVwYXNzZSDDoCBsYSBmaW4uCgoqKkgqKiDigJQgRCdhY2NvcmQuIEVsbGUgbWUgY29udGFjdGUgcXVhbmQgPwoKKipDKiog4oCUIEVsbGUgdm91cyDDqWNyaXQgZW4gZMOpYnV0IGRlIHNlbWFpbmUgcHJvY2hhaW5lLgoKLS0tCgojIyA4OjAwIOKAlCBMYSBwaHJhc2UgYW1iaWd1w6sKCioqQyoqIOKAlCBJbCB5IGEgdW4gcG9pbnQgcXVlIGplIHZldXggcG9zZXIgbWFpbnRlbmFudCwgcGFyY2UgcXUnaWwgY2hhbmdlIGJlYXVjb3VwIGRlCmNob3Nlcy4gVm9zIGRpeCBwZXJzb25uZXMgdm9udCBkZXZvaXIgZMOpY2xhcmVyIGxldXIgdHJhdmFpbCBhdXRyZW1lbnQgcXUnYXZlYyB1bmUgZmV1aWxsZS4Kw4dhIG5lIHNlIGZhaXQgcGFzIHRvdXQgc2V1bC4KCioqSCoqIOKAlCBOb24sIMOnYSBqZSBzYWlzLgoKKipDKiog4oCUIERvbmMgaWwgZmF1dCBwcsOpdm9pciB1bmUgZGVtaS1qb3VybsOpZSBhdmVjIGV1eC4gUGFzIHVuIG1haWwsIHBhcyB1bmUgbm90ZSBkZQpzZXJ2aWNlLiBVbmUgZGVtaS1qb3VybsOpZS4KCioqSCoqIOKAlCBIbW0uICoqT3VpIHBvdXIgbGEgZm9ybWF0aW9uLCBlbmZpbiBmYXVkcmEgcXUnb24gZW4gcmVwYXJsZSBhdSBidWRnZXQuKioKCioqQyoqIOKAlCBEJ2FjY29yZC4KCioqSCoqIOKAlCBQYXJjZSBxdWUgbMOgIGonYWkgdW4gdHJvdSBkZSB0csOpc29yZXJpZSBqdXNxdSfDoCBtaS1ub3ZlbWJyZSwgbGVzIHLDqGdsZW1lbnRzIGRlCmwnw6l0w6kgcXVpIG5lIHNvbnQgcGFzIHJlbnRyw6lzLiBEb25jIGplIG5lIGRpcyBwYXMgbm9uLCBoZWluLiBKZSBkaXMgcXUnaWwgZmF1dCBxdSdvbiBlbgpyZXBhcmxlLgoKKipDKiog4oCUIEMnZXN0IG5vdMOpIGNvbW1lIMOnYS4KCi0tLQoKIyMgMTE6MDAg4oCUIExlcyB0cm9pcyBhY3Rpb25zCgoqKkMqKiDigJQgQm9uLiBDb25jcsOodGVtZW50LCBwb3VyIGF2YW5jZXIsIGlsIG1lIGZhdXQgdHJvaXMgY2hvc2VzLgoKKipIKiog4oCUIEFsbGV6LXkuCgoqKkMqKiDigJQgVW4sIHZvcyBmZXVpbGxlcyBkZSBjaGFudGllciBkZXMgcXVhdHJlIGRlcm5pw6hyZXMgc2VtYWluZXMuIENlbGxlcyBxdWkgc29udApyZXZlbnVlcywgY2VsbGVzIHF1aSBtYW5xdWVudCwgdGVsbGVzIHF1ZWxsZXMuIFZvdXMgcG91dmV6IG1lIGxlcyBzY2FubmVyID8KCioqSCoqIOKAlCBKZSB2b3VzIGxlcyBzY2FubmUgdmVuZHJlZGkuCgoqKkMqKiDigJQgRGV1eCA6IGlsIGZhdXQgcXVlIGplIHBhc3NlIHVuZSBoZXVyZSDDoCBsJ2F0ZWxpZXIsIHVuIG1hdGluLCBwb3VyIHZvaXIgY29tbWVudCDDp2EKc2UgcGFzc2UgdnJhaW1lbnQuIFBhcyBwb3VyIHbDqXJpZmllciBxdWkgcXVlIGNlIHNvaXQsIGp1c3RlIHBvdXIgcmVnYXJkZXIuCgoqKkgqKiDigJQgT3VpLCBvdWkuIElsIGZhdXQgcXVlIGplIHZvaWUgYXZlYyBldXggcXVlbCBtYXRpbi4KCioqQyoqIOKAlCBFdCB0cm9pcywgbGEgbGlzdGUgZGVzIGNoYW50aWVycyBlbiBjb3VycyBhdmVjIGxlcyBub21zIHF1ZSB2b3VzIHV0aWxpc2V6IHBvdXIgbGVzCmTDqXNpZ25lci4gUGFyY2UgcXVlIHNpIG9uIGludmVudGUgZGVzIG5vbXMgZGUgY2hhbnRpZXJzIHBlcnNvbm5lIG5lIHMneSByZXRyb3V2ZXJhLgoKKipIKiog4oCUIMOHYSBjJ2VzdCBkYW5zIGxlIGNsYXNzZXVyIGJsZXUsIGZhdXQganVzdGUgcXVlIHF1ZWxxdSd1biBsZSByZWNvcGllLgoKKipDKiog4oCUIFRyw6hzIGJpZW4uCgotLS0KCiMjIDEzOjAwIOKAlCBMZSBwYXNzYWdlIHBlcnNvbm5lbAoKKipIKiog4oCUIElsIHkgYSBqdXN0ZSB1biB0cnVjIHF1ZSBqZSBkb2lzIHZvdXMgZGlyZSBwb3VyIG5vdmVtYnJlLiBMdWRvdmljLCBtb24gY2hlZgpkJ2F0ZWxpZXIsIGlsIGVzdCBlbiBhcnLDqnQuIElsIHMnZXN0IGZhaXQgb3DDqXJlciBkdSBkb3MgZMOpYnV0IG9jdG9icmUsIGlsIHJldmllbnQgYXV0b3VyCmR1IDIwIG5vdmVtYnJlLCBldCBlbmNvcmUgY2Ugbidlc3QgcGFzIHPDu3IsIMOnYSBkw6lwZW5kIGRlIGxhIHLDqcOpZHVjYXRpb24uCgoqKkMqKiDigJQgRCdhY2NvcmQuCgoqKkgqKiDigJQgSmUgdm91cyBsZSBkaXMgcGFyY2UgcXVlIGMnZXN0IGx1aSBxdWkgY29ubmHDrnQgbGUgbWlldXggbGVzIGNoYW50aWVycy4gU2kgdm91cwp2ZW5leiDDoCBsJ2F0ZWxpZXIgZXQgcXUnaWwgbidlc3QgcGFzIGzDoCwgdm91cyBuJ2F1cmV6IHF1ZSBsYSBtb2l0acOpIGRlIGwnaGlzdG9pcmUuIEV0CnB1aXMgaWwgZmF1dCBxdWUgamUgZmFzc2UgYXR0ZW50aW9uIMOgIGNlIHF1ZSBqZSBsdWkgZGVtYW5kZSBxdWFuZCBpbCByZXZpZW50LCBpbCBuZSB2YSBwYXMKcmVwcmVuZHJlIMOgIGNlbnQgcG91ciBjZW50IHRvdXQgZGUgc3VpdGUuCgoqKkMqKiDigJQgSmUgY29tcHJlbmRzLiBPbiBzJ29yZ2FuaXNlcmEgYXV0b3VyLgoKKipIKiog4oCUIFZvaWzDoC4gQm9uLgoKLS0tCgojIyAxNTowMCDigJQgRmluCgoqKkMqKiDigJQgT24gc2UgY2FsZSB1biBwb2ludCBxdWFuZCBTb2ZpYSB2b3VzIGF1cmEgw6ljcml0LiBKZSB2b3VzIGVudm9pZSBsZSBjb21wdGUgcmVuZHUKZCdpY2kgZGVtYWluLgoKKipIKiog4oCUIFBhcmZhaXQuIE1lcmNpIMOgIHZvdXMuCgotLS0KCiMjIENlIHF1aSBlc3Qgdm9sb250YWlyZW1lbnQgZGFucyBsJ2VucmVnaXN0cmVtZW50Cgp8IE1vbWVudCB8IENlIHF1ZSDDp2EgcG9ydGUgfCBMZcOnb24gfAp8IDotLSB8IDotLSB8IDotLSB8CnwgKio1OjAwKiog4oCUIMKrIG9uIHBhcnQgc3VyIHVuZSBtaXNlIGVuIHBsYWNlIGVuIG5vdmVtYnJlIMK7IHwgVW5lIGTDqWNpc2lvbiBjbGFpcmUsIMOgIHJldHJvdXZlciB8IDUgfAp8ICoqNTowMCoqIOKAlCDCqyBjJ2VzdCBTb2ZpYSBxdWkgc2VyYSB2b3RyZSBpbnRlcmxvY3V0cmljZSDCuyB8IFVuZSBkw6ljaXNpb24gY2xhaXJlLCDDoCByZXRyb3V2ZXIgfCA1IHwKfCAqKjg6MDAqKiDigJQgwqsgb3VpIHBvdXIgbGEgZm9ybWF0aW9uLCBlbmZpbiBmYXVkcmEgcXUnb24gZW4gcmVwYXJsZSBhdSBidWRnZXQgwrsgfCAqKlJlc3NlbWJsZSDDoCB1bmUgZMOpY2lzaW9uLCBuJ2VuIGVzdCBwYXMgdW5lKiogfCA1IHwKfCAqKjExOjAwKiog4oCUIGxlcyB0cm9pcyBhY3Rpb25zIHwgVW5lICoqc2FucyDDqWNow6lhbmNlKiogKGwnaGV1cmUgw6AgbCdhdGVsaWVyKSwgdW5lICoqc2FucyBwcm9wcmnDqXRhaXJlKiogKMKrIGZhdXQgcXVlIHF1ZWxxdSd1biBsZSByZWNvcGllIMK7KSB8IDUgZXQgNiB8CnwgKioxMzowMCoqIOKAlCBsJ2FycsOqdCBkZSB0cmF2YWlsIGRlIEx1ZG92aWMgfCAqKk5lIHNlIHJlY29waWUgcGFzIGRhbnMgbGUgY29tcHRlIHJlbmR1KiogfCA3IHwKCiMjIyBTdXIgbGEgcGhyYXNlIGRlIDg6MDAKCkMnZXN0IGVsbGUgcXVpIGZhaXQgbGEgbGXDp29uIDUuIFVuZSBhbmFseXNlIGF1dG9tYXRpcXVlIGEgdG91dGVzIGxlcyBjaGFuY2VzIGRlIGxhIHJhbmdlcgpkYW5zIGxlcyBkw6ljaXNpb25zIOKAlCDCqyBvdWkgcG91ciBsYSBmb3JtYXRpb24gwrsgcmVzc2VtYmxlIMOgIHVuIGFjY29yZC4gRWxsZSBuJ2VuIGVzdCBwYXMKdW5lIDogaWwgeSBhIHVuIMKrIGVuZmluIMK7IGV0IHVuZSByw6lzZXJ2ZSBidWRnw6l0YWlyZSBkZXJyacOocmUuICoqU2kgbCdvdXRpbCBsYSBjbGFzc2UKY29ycmVjdGVtZW50IGxlIGpvdXIgZHUgdG91cm5hZ2UqKiwgbGEgbGXDp29uIHJlc3RlIHZhbGFibGUgOiBvbiBtb250cmUgbGEgdHJhbnNjcmlwdGlvbiwKb24gZXhwbGlxdWUgcG91cnF1b2kgbGEgcGhyYXNlIGVzdCBwacOpZ2V1c2UsIGV0IG9uIGRpdCBxdWUgbCdvdXRpbCBhIGJpZW4gZmFpdCBjZXR0ZQpmb2lzLWNpLiBDZSBxdWkgcydlbnNlaWduZSwgYydlc3QgbGUgZmFpdCBkZSByZW1vbnRlciB2w6lyaWZpZXIg4oCUIHBhcyBsJ2VycmV1ciBkZSBsJ291dGlsLgoKIyMjIFN1ciBsZSBwYXNzYWdlIGRlIDEzOjAwCgpVbiBhcnLDqnQgZGUgdHJhdmFpbCBlc3QgdW5lIGRvbm7DqWUgZGUgc2FudMOpLiBFbGxlIGVzdCBkaXRlIGVuIHLDqXVuaW9uLCBlbGxlIGVzdCBkYW5zIGxhCnRyYW5zY3JpcHRpb24sIGV0ICoqZWxsZSBuZSB2YSBwYXMgZGFucyBsZSBjb21wdGUgcmVuZHUgZW52b3nDqSoqLiBDZSBxdWkgdmEgZGFucyBsZSBjb21wdGUKcmVuZHUsIGMnZXN0IDogwqsgTHVkb3ZpYywgY2hlZiBkJ2F0ZWxpZXIsIGFic2VudCBqdXNxdWUgdmVycyBsZSAyMCBub3ZlbWJyZS4gUHLDqXZvaXIKbCdhY2PDqHMgYXV4IGluZm9ybWF0aW9ucyBjaGFudGllciBzYW5zIGx1aS4gwrsgTGUgZmFpdCwgcGFzIGxhIHJhaXNvbi4KCkMnZXN0IGxhIGTDqW1vbnN0cmF0aW9uIGxhIHBsdXMgY29uY3LDqHRlIGRlIGxhIGxlw6dvbiA3LCBldCBlbGxlIG5lIHNlIHJhY29udGUgcGFzIDogaWwgZmF1dApsJ2VucmVnaXN0cmVtZW50IHBvdXIgbGEgZmFpcmUuCgotLS0KCiMjIExlIHRyYWl0ZW1lbnQKCklsIHBldXQgcHJlbmRyZSBqdXNxdSfDoCAqKjMwIG1pbnV0ZXMqKi4gTGFuY2VyLCAqKmNvdXBlciBsYSBjYW3DqXJhKiosIHJlcHJlbmRyZSBzdXIgbGUKcsOpc3VsdGF0IOKAlCBldCBsZSAqKmRpcmUgw6AgbCdhcHByZW5hbnQqKiBwbHV0w7R0IHF1ZSBkZSBtYXNxdWVyIGxhIGNvdXBlLgo=</script></button><button class="dlb" id="f84" data-nom="LEEXI-modele-compte-rendu.md" onclick="tele(this)"><span class="dlb-i">⬇</span><span class="dlb-t"><b>Le modèle de compte rendu — leçon 6</b><span>Décisions, actions avec qui et pour quand, points en suspens · LEEXI-modele-compte-rendu.md · 2 Ko</span></span><script type="application/octet-stream" id="b84">IyBMZSBtb2TDqGxlIGRlIGNvbXB0ZSByZW5kdSDigJQgbGXDp29uIDYKCkfDqW7DqXLDqSBwYXIgbCdvdXRpbCwgKipjb3JyaWfDqSDDoCBsJ8OpY3JhbiBzdXIgZGV1eCBwb2ludHMqKiwgcHVpcyBwcsOpcGFyw6kgZW4gYnJvdWlsbG9uIGRlCm1haWwuIEphbWFpcyBlbnZvecOpIGF1dG9tYXRpcXVlbWVudC4KCi0tLQoKIyMgQ29tcHRlIHJlbmR1IOKAlCBNZW51aXNlcmllIFZhc3NldXIKCioqRGF0ZSoqIDogW2RhdGUgZHUgcmVuZGV6LXZvdXNdCioqUGFydGljaXBhbnRzKiogOiBIw6lsw6huZSBWYXNzZXVyIChNZW51aXNlcmllIFZhc3NldXIpLCBbY29uc3VsdGFudF0KKipPYmpldCoqIDogY2FkcmFnZSDigJQgc3VpdmkgZGVzIGhldXJlcyBldCBkZXMgY2hhbnRpZXJzCgojIyMgQ29udGV4dGUKT256ZSBwZXJzb25uZXMsIGFnZW5jZW1lbnQgc3VyIG1lc3VyZSBwb3VyIGRlcyBwcm9mZXNzaW9ubmVscy4gTCdvcmdhbmlzYXRpb24gbidhIHBhcwpzdWl2aSBsYSBjcm9pc3NhbmNlIDogbGVzIGhldXJlcyBkZSBjaGFudGllciBzb250IHJlbGV2w6llcyBzdXIgZmV1aWxsZSBwYXBpZXIgZXQKcmVzc2Fpc2llcyBtYW51ZWxsZW1lbnQgY2hhcXVlIHZlbmRyZWRpLCBlbnZpcm9uIHRyb2lzIGhldXJlcyBwYXIgc2VtYWluZS4gTGUgc3VpdmkgZGVzCmRldmlzIHNlIGZhaXQgc3VyIHVuIGNhcm5ldCwgc2FucyDDqXRhdCBmaWFibGUgZGUgY2UgcXVpIGEgw6l0w6kgcmVsYW5jw6kuCgojIyMgRMOpY2lzaW9ucwotICoqTWlzZSBlbiBwbGFjZSBlbiBub3ZlbWJyZS4qKiBEw6ljZW1icmUgZXN0IMOpY2FydMOpIChwaWMgZCdhY3Rpdml0w6kpLCBqYW52aWVyIGp1Z8OpIHRyb3AKICB0YXJkaWYuCi0gKipTb2ZpYSBlc3QgbCdpbnRlcmxvY3V0cmljZSoqIHN1ciBsYSBwaGFzZSBkZSBtaXNlIGVuIHBsYWNlLiBFbGxlIMOpY3JpdCBlbiBkw6lidXQgZGUKICBzZW1haW5lIHByb2NoYWluZS4KCiMjIyBQb2ludCBvdXZlcnQsIG5vbiB0cmFuY2jDqQotICoqTGEgZGVtaS1qb3VybsOpZSBkZSBmb3JtYXRpb24gZGVzIMOpcXVpcGVzIGVzdCBhY2NlcHTDqWUgc3VyIGxlIHByaW5jaXBlLCBtYWlzIHBhcwogIHZhbGlkw6llIGJ1ZGfDqXRhaXJlbWVudC4qKiDDgCByZXBhcmxlci4gQ29udHJhaW50ZSBkZSB0csOpc29yZXJpZSBqdXNxdSfDoCBtaS1ub3ZlbWJyZS4KCiMjIyBBY3Rpb25zCnwgUXVvaSB8IFF1aSB8IFF1YW5kIHwKfCA6LS0gfCA6LS0gfCA6LS0gfAp8IFRyYW5zbWV0dHJlIGxlcyBmZXVpbGxlcyBkZSBjaGFudGllciBkZXMgNCBkZXJuacOocmVzIHNlbWFpbmVzIHwgSMOpbMOobmUgVmFzc2V1ciB8IHZlbmRyZWRpIHwKfCBPcmdhbmlzZXIgdW5lIGhldXJlIGQnb2JzZXJ2YXRpb24gw6AgbCdhdGVsaWVyIHwgSMOpbMOobmUgVmFzc2V1ciB8ICoqZGF0ZSDDoCBmaXhlcioqIHwKfCBSZWNvcGllciBsYSBsaXN0ZSBkZXMgY2hhbnRpZXJzIGVuIGNvdXJzIGV0IGxldXJzIG5vbXMgZCd1c2FnZSB8ICoqw6AgZMOpc2lnbmVyKiogfCDDoCBmaXhlciB8CgojIyMgw4Agc2F2b2lyIHBvdXIgbCdvcmdhbmlzYXRpb24KTHVkb3ZpYywgY2hlZiBkJ2F0ZWxpZXIsIGVzdCBhYnNlbnQganVzcXVlIHZlcnMgbGUgMjAgbm92ZW1icmUuIEMnZXN0IGx1aSBxdWkgY29ubmHDrnQgbGUKbWlldXggbGVzIGNoYW50aWVycyA6IHByw6l2b2lyIGwnYWNjw6hzIGF1eCBpbmZvcm1hdGlvbnMgY2hhbnRpZXIgc2FucyBsdWksIGV0IGFsbMOpZ2VyIGNlCnF1aSBsdWkgc2VyYSBkZW1hbmTDqSDDoCBzb24gcmV0b3VyLgoKLS0tCgojIyBMZXMgZGV1eCBjb3JyZWN0aW9ucyDDoCBmYWlyZSDDoCBsJ8OpY3JhbgoKMS4gKipTb3J0aXIgbGEgZm9ybWF0aW9uIGRlcyBkw6ljaXNpb25zLioqIEwnYW5hbHlzZSBhdXRvbWF0aXF1ZSBhIHRvdXRlcyBsZXMgY2hhbmNlcyBkZSBsYQogICByYW5nZXIgZGFucyBsZXMgZMOpY2lzaW9ucyDigJQgwqsgb3VpIHBvdXIgbGEgZm9ybWF0aW9uIMK7IHJlc3NlbWJsZSDDoCB1biBhY2NvcmQuIE9uIHJlbW9udGUKICAgw6AgbGEgdHJhbnNjcmlwdGlvbiwgb24gcsOpw6ljb3V0ZSwgZXQgb24gbGEgZMOpcGxhY2UgZGFucyAqKlBvaW50IG91dmVydCoqLiBDJ2VzdCBsYQogICBjb3JyZWN0aW9uIHF1aSBmYWl0IGxhIGxlw6dvbi4KMi4gKipSZW5kcmUgdmlzaWJsZXMgbGVzIHRyb3VzLioqIMKrIGRhdGUgw6AgZml4ZXIgwrsgZXQgwqsgw6AgZMOpc2lnbmVyIMK7IHJlc3RlbnQgw6ljcml0cyBlbgogICB0b3V0ZXMgbGV0dHJlcy4gVW5lIGFjdGlvbiBzYW5zIHByb3ByacOpdGFpcmUgbmkgw6ljaMOpYW5jZSBuZSBzZSBjb21wbMOodGUgcGFzIGVuCiAgIGludmVudGFudCA6IGVsbGUgc2Ugc2lnbmFsZS4KCiMjIExhIGxpZ25lIHJvdWdlCgpMZSBjb21wdGUgcmVuZHUgZGl0ICoqwqsgYWJzZW50IGp1c3F1ZSB2ZXJzIGxlIDIwIG5vdmVtYnJlIMK7KiouIElsIG5lIGRpdCBuaSBsJ29ww6lyYXRpb24sCm5pIGxlIGRvcywgbmkgbGEgcsOpw6lkdWNhdGlvbi4gTGUgZmFpdCwgcGFzIGxhIHJhaXNvbi4KCkMnZXN0IGwnZXhlbXBsZSDDoCBtb250cmVyIDogbCdpbmZvcm1hdGlvbiBlc3QgZGFucyBsYSB0cmFuc2NyaXB0aW9uLCBlbGxlIGVzdCBleGFjdGUsIGV0CmVsbGUgbmUgc2UgcmVjb3BpZSBwYXMuCg==</script></button><button class="dlb" id="f85" data-nom="LEEXI-checklist-et-suppression.md" onclick="tele(this)"><span class="dlb-i">⬇</span><span class="dlb-t"><b>La checklist et la suppression — leçon 7</b><span>Ce qu&#x27;on vérifie, et la routine de fin de dossier · LEEXI-checklist-et-suppression.md · 1 Ko</span></span><script type="application/octet-stream" id="b85">IyBMaW1pdGVzLCByw6lnbGFnZXMgZXQgc3VwcHJlc3Npb24g4oCUIGxlw6dvbiA3CgojIyBDZSBxdSdvbiBtb250cmUsIGRhbnMgY2V0IG9yZHJlCgoxLiAqKk/DuSBzZSBsaXQgbGEgZHVyw6llIGRlIGNvbnNlcnZhdGlvbiBwYXIgZMOpZmF1dCoqLCBkYW5zIGxlcyByw6lnbGFnZXMgZHUgY29tcHRlLiBMZXMKICAgcsOpZ2xhZ2VzIHBhciBkw6lmYXV0IGRlcyBvdXRpbHMgc2UgY29tcHRlbnQgZW4gYW5uw6llcyA7IGxhIGR1csOpZSBxdSdvbiBzJ2VzdCBhbm5vbmPDqWUgZW4KICAgb3V2ZXJ0dXJlIGRlIHJlbmRlei12b3VzIHNlIGNvbXB0ZSBlbiBqb3Vycy4gTCfDqWNhcnQgc2Ugdm9pdCDDoCBsJ8OpY3Jhbi4KMi4gKipTdXBwcmltZXIgdW4gZW5yZWdpc3RyZW1lbnQgw6AgbGEgbWFpbiwgZGUgYm91dCBlbiBib3V0LioqIFBhcyDCqyBvbiBwZXV0IGxlCiAgIHN1cHByaW1lciDCuyA6IG9uIGxlIHN1cHByaW1lLCBvbiB2YSB2w6lyaWZpZXIgcXUnaWwgbidlc3QgcGx1cyBsw6AsIGV0IG9uIG1vbnRyZSBzaSBsYQogICB0cmFuc2NyaXB0aW9uIGVzdCBwYXJ0aWUgYXZlYyBvdSBub24uCjMuICoqRMOpcm91bGVyIGxhIGNoZWNrbGlzdC4qKgoKIyMgTGEgY2hlY2tsaXN0CgotIFsgXSBMJ2luZm9ybWF0aW9uIGEgw6l0w6kgZG9ubsOpZSAqKmF2YW50KiogbGUgZMOpYnV0IGRlIGwnZW5yZWdpc3RyZW1lbnQsIHBhcyBhcHLDqHMuCi0gWyBdIExhIGZpbmFsaXTDqSBldCBsYSBkdXLDqWUgZGUgY29uc2VydmF0aW9uIG9udCDDqXTDqSBkaXRlcyDDoCB2b2l4IGhhdXRlLgotIFsgXSBRdWVscXUndW4gcG91dmFpdCBkaXJlIG5vbiAqKnNhbnMgc2UganVzdGlmaWVyKiosIGV0IMOnYSBhIMOpdMOpIHByw6lzZW50w6kgY29tbWUgbm9ybWFsLgotIFsgXSBPbiBuJ2VucmVnaXN0cmUgKipwYXMgc3lzdMOpbWF0aXF1ZW1lbnQqKiB0b3VzIGxlcyDDqWNoYW5nZXMuCi0gWyBdIExlIGNvbXB0ZSByZW5kdSBhIMOpdMOpICoqcmVsdSoqIGF2YW50IGVudm9pLiBUb3Vqb3Vycy4KLSBbIF0gUmllbiBkZSBjZSBxdWkgcmVsw6h2ZSBkZSBsYSB2aWUgcHJpdsOpZSBvdSBkZSBsYSBzYW50w6kgbidhIMOpdMOpIHJlY29wacOpLgotIFsgXSBMZXMgYWN0aW9ucyBzYW5zIHByb3ByacOpdGFpcmUgb3Ugc2FucyDDqWNow6lhbmNlIHNvbnQgKipzaWduYWzDqWVzKiosIHBhcyBjb21ibMOpZXMuCi0gWyBdIEwnZW5yZWdpc3RyZW1lbnQgZXN0IHN1cHByaW3DqSB1bmUgZm9pcyBsZSBjb21wdGUgcmVuZHUgcsOpZGlnw6kuCi0gWyBdIExlIHLDqWdsYWdlIGRlIGNvbnNlcnZhdGlvbiBkdSBjb21wdGUgY29ycmVzcG9uZCDDoCBjZSBxdSdvbiBhbm5vbmNlIGF1eCBjbGllbnRzLgoKIyMgQ2UgcXUnaWwgZmF1dCBhdm9pciBzb3VzIGxhIG1haW4KCi0gVW4gZW5yZWdpc3RyZW1lbnQgZGUgdGVzdCAqKnRlcm1pbsOpKiogKHBhcyBlbiBjb3VycyBkZSB0cmFpdGVtZW50KS4KLSBMZXMgcsOpZ2xhZ2VzIGR1IGNvbXB0ZSwgb3V2ZXJ0cy4KLSBVbiBzZWNvbmQgZW5yZWdpc3RyZW1lbnQsIHF1J29uIHBldXQgc2UgcGVybWV0dHJlIGRlIHN1cHByaW1lciBwb3VyIGRlIGJvbi4KCiMjIExlIHBpw6hnZQoKU3VwcHJpbWVyIHVuIGVucmVnaXN0cmVtZW50IGVuIGZpbiBkZSBjYXBzdWxlIGV0IGTDqWNvdXZyaXIgw6AgbCfDqWNyYW4gcXUnb24gdmllbnQKZCdlZmZhY2VyIGNlbHVpIHF1aSBzZXJ2YWl0IGF1eCBsZcOnb25zIHByw6ljw6lkZW50ZXMuICoqRmFpcmUgZGV1eCBlbnJlZ2lzdHJlbWVudHMqKiwgb3UKdG91cm5lciBsYSBsZcOnb24gNyBlbiBkZXJuaWVyIGV0IHbDqXJpZmllciBxdSdvbiBuJ2EgcGx1cyBiZXNvaW4gZGUgcmllbi4K</script></button>
+
+<div class="warning-big"><div class="wl">🎙️ L'enregistrement est la pièce maîtresse : tout le reste en découle</div>
+<p><strong>Deux voix distinctes</strong>, chacune sur son micro — pas deux personnes sur le même
+micro. C'est ce que Leexi sépare, et deux voix qui se ressemblent rendent la leçon 4 illisible.</p>
+<p><strong>Ne pas réciter.</strong> Le script donne les points de passage ; le reste s'improvise
+autour. Les hésitations et les reprises se gardent — une transcription trop propre ne ressemble à
+rien de réel. <strong>Mais les quatre phrases en gras se disent mot pour mot</strong> : ce sont
+elles que les leçons 5 et 7 vont chercher.</p></div>
+
+<h3>Ce que l'enregistrement doit contenir, et pourquoi</h3>
+<div class="tw"><table><thead><tr><th>Minute</th><th>Ce qui s&#x27;y passe</th><th>La leçon qui en dépend</th></tr></thead><tbody><tr><td>0:00</td><td>Présentation, contexte de l&#x27;entreprise</td><td>—</td></tr><tr><td>2:00</td><td>Le besoin exprimé, un peu en désordre</td><td>4</td></tr><tr><td>5:00</td><td>&lt;b&gt;Deux décisions claires&lt;/b&gt; : « on part sur une mise en place en novembre », « c&#x27;est Sofia qui sera votre interlocutrice »</td><td>5</td></tr><tr><td>8:00</td><td>&lt;b&gt;La phrase ambiguë&lt;/b&gt; : « oui pour la formation, enfin faudra qu&#x27;on en reparle au budget » — elle ressemble à une décision, elle n&#x27;en est pas une</td><td>&lt;b&gt;5&lt;/b&gt;</td></tr><tr><td>11:00</td><td>Trois actions, dont &lt;b&gt;une sans échéance&lt;/b&gt; et &lt;b&gt;une sans propriétaire&lt;/b&gt;</td><td>6</td></tr><tr><td>13:00</td><td>&lt;b&gt;Un passage personnel&lt;/b&gt; : un participant évoque un arrêt de travail</td><td>&lt;b&gt;7&lt;/b&gt;</td></tr><tr><td>15:00</td><td>Fin</td><td>—</td></tr></tbody></table></div><p class="cap">La phrase de 8:00 porte la leçon 5 : sans elle, la leçon n'a rien à montrer. Le passage de 13:00 porte la leçon 7 : il permet de montrer concrètement ce qu'on ne recopie pas.</p>
+
+<div class="part-sep"></div>
+<h3>Partie 1 — Les bases</h3>
+
+<div class="lec" id="L01">
+  <div class="lec-h"><span class="lec-n">01</span><span class="lec-t">À quoi sert Leexi, et ce que ça coûte</span><span class="lec-d">7 min</span></div>
+  <div class="lec-b">
+    <div class="say"><div class="sl">La phrase d'ouverture</div><p>« Prendre des notes ou écouter : il faut choisir. Sauf si quelqu'un note pour toi. »</p></div>
+    <dl class="ecr"><dt>À l'écran</dt><dd>Une <b>transcription finie</b>, puis la page de tarifs, puis le parcours d'ouverture de l'essai.</dd><dt>Données</dt><dd>La transcription de l'enregistrement joué — celle qu'on obtiendra en leçon 3.</dd><dt>Le cadre à annoncer exactement</dt><dd><b>7 jours d'essai gratuit</b> sur toute la suite, puis un abonnement <b>à partir de 12 $ par licence et par mois en annuel</b>, <b>sans palier gratuit permanent</b>.</dd></dl>
+    <h4>Les gestes, dans l'ordre</h4>
+    <ol class="clics"><li>Montrer une transcription finie : voilà ce que ça produit.</li><li>Ouvrir la page de tarifs, dire la date, et annoncer le cadre : sept jours d'essai sur toute la suite, puis un abonnement.</li><li>Dire la nuance sans la mettre en avant : une licence <b>« Invité » gratuite</b> existe à l'intérieur d'un espace déjà payant, mais <b>elle ne transcrit pas vos propres réunions</b>. Les deux informations ensemble, jamais l'une sans l'autre.</li><li>Donner la consigne pratique : <b>ouvrir l'essai le jour où on attaque la capsule</b>, et enchaîner les sept leçons dans la foulée pour avoir tout essayé avant la fin de la semaine.</li><li>Montrer le parcours d'ouverture de l'essai, pour que l'apprenant sache exactement par où commencer.</li></ol>
+    
+    <p class="hc2"><b>Hors champ :</b> L'interface complète. On montre une transcription finie et le parcours d'ouverture de l'essai.</p>
+  </div>
+</div>
+<div class="lec" id="L02">
+  <div class="lec-h"><span class="lec-n">02</span><span class="lec-t">Informer, pas faire signer</span><span class="lec-d">6 min</span></div>
+  <div class="lec-b">
+    <div class="say"><div class="sl">La phrase d'ouverture</div><p>« On ne demande pas une autorisation. On informe, et on accepte qu'on puisse dire non. »</p></div>
+    <dl class="ecr"><dt>À l'écran</dt><dd><b>Rien.</b> Leçon face caméra, volontairement. Un seul onglet ouvert : la page de la CNIL, pour la citer.</dd><dt>Données</dt><dd>La <b>phrase d'information</b>, écrite à l'avance — elle est plus bas.</dd><dt>L'idée fausse à corriger d'emblée</dt><dd>Enregistrer un rendez-vous professionnel ne repose <b>pas sur le consentement</b> au sens du RGPD, mais sur l'<b>intérêt légitime</b>.</dd></dl>
+    <h4>Les gestes, dans l'ordre</h4>
+    <ol class="clics"><li>Corriger l'idée fausse dès le début, et expliquer pourquoi la différence est concrète.</li><li>Poser les quatre obligations : <b>informer avant</b> que l'enregistrement commence, dire <b>pourquoi</b> on enregistre et <b>combien de temps</b> on garde, permettre de <b>s'y opposer sans se justifier</b>, et <b>ne pas enregistrer systématiquement</b> — un enregistrement permanent de tous les échanges est disproportionné.</li><li>Dire la durée : la CNIL fixe <b>six mois au maximum</b> pour les enregistrements, et <b>un an</b> pour les documents d'analyse qu'on en tire. <b>Ouvrir sa page à l'écran et lire ce qu'elle dit</b>, plutôt que de citer un délai de mémoire. Dire aussi ce qu'elle recommande : écouter sous quelques jours, rédiger l'analyse, <b>puis supprimer l'enregistrement</b> et ne garder que l'analyse.</li><li>Dire l'écart : six mois est un <b>plafond, pas une norme à viser</b>. En pratique on relit sous quelques jours, on rédige l'analyse, on supprime l'enregistrement. Les réglages par défaut des outils, eux, se comptent en années — on y revient en leçon 7.</li><li><b>Lire la phrase d'information à voix haute</b>, en conditions réelles, comme on la dira en ouverture de rendez-vous.</li><li>Dire ce qu'on fait quand quelqu'un refuse : <b>on coupe, on prend des notes, et on ne le reproche à personne</b>.</li></ol>
+    <div class="tip warn"><span class="tip-i">📅</span><div class="tip-c"><strong>La page de la CNIL porte un avis d'obsolescence : le dire à l'écran</strong>
+Elle est datée du 5 mai 2009 et annonce elle-même être en cours d'actualisation. Ce n'est pas une
+raison de ne pas la citer — c'est la référence publique sur le sujet — mais il faut
+<strong>annoncer sa date</strong> et dire qu'elle est en cours de mise à jour. Une vidéo qui cite une
+page obsolète sans le dire vieillit mal ; une vidéo qui le dit reste honnête.</div></div><div class="tw"><table><thead><tr><th>Ce que la page confirme</th><th>Ce qu&#x27;on en dit à l&#x27;écran</th></tr></thead><tbody><tr><td>La base est l&#x27;&lt;b&gt;intérêt légitime&lt;/b&gt;, ou une obligation légale — pas le consentement</td><td>C&#x27;est le cœur de la leçon</td></tr><tr><td>Les personnes doivent être &lt;b&gt;informées&lt;/b&gt; : finalité, base légale, destinataires, durée, droit d&#x27;opposition</td><td>On énumère, on ne récite pas</td></tr><tr><td>Le droit de &lt;b&gt;s&#x27;opposer&lt;/b&gt; doit être annoncé &lt;b&gt;avant la fin de l&#x27;appel&lt;/b&gt;</td><td>D&#x27;où la phrase dite en ouverture</td></tr><tr><td>L&#x27;enregistrement &lt;b&gt;permanent ou systématique&lt;/b&gt; est interdit sauf texte légal</td><td>Un consultant qui enregistre tout est hors des clous</td></tr><tr><td>&lt;b&gt;6 mois&lt;/b&gt; maximum pour les enregistrements, &lt;b&gt;1 an&lt;/b&gt; pour les documents d&#x27;analyse</td><td>Les deux durées, pas seulement la première</td></tr><tr><td>Recommandation : écouter sous quelques jours, rédiger l&#x27;analyse, &lt;b&gt;supprimer l&#x27;enregistrement&lt;/b&gt;</td><td>C&#x27;est la routine de fin de dossier de la leçon 7</td></tr></tbody></table></div><p class="cap">Vérifié sur la page de la CNIL le 16 octobre 2026. Elle reste à rouvrir à l'écran le jour du tournage : c'est le geste qui rend la citation vérifiable.</p><div class="cbx">
+  <div class="cbx-h"><span class="cbx-l">La phrase d&#x27;information — à dire AVANT de lancer l&#x27;enregistrement</span>
+    <button class="cbx-b" onclick="cp(this,'d86')">Copier</button></div>
+  <pre id="d86" class="cbx-p">Avant qu&#x27;on commence : j&#x27;enregistre nos échanges pour ne pas prendre de notes et vous
+envoyer un compte rendu fidèle. L&#x27;enregistrement me sert uniquement à ça, je le supprime
+une fois le compte rendu rédigé — sous quelques jours. Si vous préférez que je n&#x27;enregistre
+pas, dites-le maintenant, je coupe et je prends des notes. Ça ne pose aucun problème.</pre>
+</div><div class="tw"><table><thead><tr><th>Le morceau</th><th>Ce qu&#x27;il couvre</th></tr></thead><tbody><tr><td>« avant qu&#x27;on commence »</td><td>L&#x27;information arrive &lt;b&gt;avant&lt;/b&gt; l&#x27;enregistrement, pas après</td></tr><tr><td>« pour vous envoyer un compte rendu fidèle »</td><td>La finalité, dite en clair</td></tr><tr><td>« uniquement à ça »</td><td>Pas de réutilisation pour autre chose</td></tr><tr><td>« je le supprime sous quelques jours »</td><td>La durée de conservation, annoncée</td></tr><tr><td>« dites-le maintenant, je coupe »</td><td>L&#x27;opposition, possible et sans justification</td></tr><tr><td>« ça ne pose aucun problème »</td><td>Sans quoi personne n&#x27;ose dire non</td></tr></tbody></table></div><p class="cap">Chaque morceau est là pour une raison. En retirer un, c'est retirer une obligation.</p><div class="tip err"><span class="tip-i">⚖️</span><div class="tip-c"><strong>Ne jamais dire « il faut le consentement des participants »</strong>
+C'est juridiquement faux, et ça met le consultant dans une position intenable : si le consentement
+était la base, un refus annulerait tout traitement rétroactivement. Et <strong>ne pas demander
+« est-ce que vous êtes d'accord ? »</strong> — on informe, on permet l'opposition. Ce n'est pas la
+même chose, et ce n'est pas la même base juridique.</div></div>
+    <p class="hc2"><b>Hors champ :</b> L'écran. C'est volontairement une leçon face caméra : le sujet est ce qu'on dit en ouverture de rendez-vous, pas où on clique.</p>
+  </div>
+</div>
+<h3>Partie 2 — Le cas pratique : exploiter un rendez-vous</h3>
+
+<div class="lec" id="L03">
+  <div class="lec-h"><span class="lec-n">03</span><span class="lec-t">Capter le rendez-vous</span><span class="lec-d">6 min</span></div>
+  <div class="lec-b">
+    <div class="say"><div class="sl">La phrase d'ouverture</div><p>« Un bot qui rejoint la visio, ou un enregistrement qu'on dépose. »</p></div>
+    <dl class="ecr"><dt>À l'écran</dt><dd>Leexi, ses trois entrées, et l'agenda connecté avec le rendez-vous de test.</dd><dt>Données</dt><dd>L'<b>enregistrement de 15 minutes</b>, joué à l'avance, prêt à déposer.</dd><dt>Le réglage à relier à la leçon 2</dt><dd>Leexi peut envoyer automatiquement un <b>e-mail d'information RGPD une heure avant</b> la réunion — mais par défaut ce réglage ne couvre que les réunions <b>qu'on organise soi-même</b>.</dd></dl>
+    <h4>Les gestes, dans l'ordre</h4>
+    <ol class="clics"><li>Montrer les <b>trois façons</b> d'alimenter Leexi en les nommant : le <b>bot</b> qui rejoint la visio depuis l'agenda, l'<b>enregistrement en présentiel</b> lancé depuis le web ou le mobile, et l'<b>import d'un fichier</b> audio ou vidéo.</li><li>Dire laquelle choisir selon le contexte, et insister : <b>le présentiel compte autant que la visio</b> pour un consultant.</li><li>Montrer le rendez-vous de test dans l'agenda et le bot qui le rejoindrait.</li><li>Ouvrir le réglage de l'<b>e-mail d'information RGPD</b>, montrer <b>où on l'étend</b> aux réunions qu'on n'organise pas, et rappeler qu'il <b>ne dispense pas de le dire de vive voix</b>.</li><li>Déposer l'enregistrement et <b>lancer le traitement</b>.</li></ol>
+    <div class="tip warn"><span class="tip-i">⏱️</span><div class="tip-c"><strong>Le traitement peut prendre jusqu'à 30 minutes</strong>
+Ne pas filmer l'attente. Lancer, couper la caméra, reprendre sur le résultat — et
+<strong>le dire à l'apprenant</strong> plutôt que de masquer la coupe.</div></div>
+    <p class="hc2"><b>Hors champ :</b> L'attente du traitement en direct, qui peut durer trente minutes. On lance, on coupe, on reprend sur le résultat en le disant.</p>
+  </div>
+</div>
+<div class="lec" id="L04">
+  <div class="lec-h"><span class="lec-n">04</span><span class="lec-t">Lire la transcription</span><span class="lec-d">7 min</span></div>
+  <div class="lec-b">
+    <div class="say"><div class="sl">La phrase d'ouverture</div><p>« Ce n'est pas un texte à lire en entier. C'est un texte dans lequel on cherche. »</p></div>
+    <dl class="ecr"><dt>À l'écran</dt><dd>La transcription obtenue à la leçon précédente.</dd><dt>Données</dt><dd>Le passage de <b>2:00</b> — le besoin exprimé en désordre. C'est celui où la recherche sert le plus.</dd><dt>Ce qu'on démontre</dt><dd>Retrouver un moment précis, et <b>vérifier qui a dit quoi</b>. C'est la séparation des deux voix qui rend ça possible.</dd></dl>
+    <h4>Les gestes, dans l'ordre</h4>
+    <ol class="clics"><li>Faire défiler la transcription cinq secondes, puis s'arrêter : personne ne lira ça en entier. <b>Le dire.</b></li><li><b>Chercher un terme</b> précis dans la transcription — un mot qui revient dans le besoin exprimé.</li><li><b>Sauter au moment correspondant</b> et écouter l'extrait.</li><li>Vérifier <b>qui</b> a dit la phrase, en montrant l'attribution des voix.</li><li>Dire l'usage réel : on ne relit pas un rendez-vous, on y <b>retourne chercher</b> quelque chose de précis.</li></ol>
+    
+    <p class="hc2"><b>Hors champ :</b> La lecture intégrale de la transcription. On cherche un terme, on saute au moment, on écoute l'extrait.</p>
+  </div>
+</div>
+<div class="lec" id="L05">
+  <div class="lec-h"><span class="lec-n">05</span><span class="lec-t">Sortir les décisions et les actions</span><span class="lec-d">8 min</span></div>
+  <div class="lec-b">
+    <div class="say"><div class="sl">La phrase d'ouverture</div><p>« Ce qui a été décidé, et ce qui a seulement été évoqué. Ce n'est pas pareil. »</p></div>
+    <dl class="ecr"><dt>À l'écran</dt><dd>Le résumé généré par Leexi, puis la transcription pour vérifier.</dd><dt>Données</dt><dd>Les <b>deux décisions</b> de 5:00, et surtout <b>la phrase ambiguë de 8:00</b>, placée exprès dans l'enregistrement.</dd><dt>Ce qu'on démontre</dt><dd>Le résumé est un point de départ, pas un livrable. <b>Une intention n'est pas une décision.</b></dd></dl>
+    <h4>Les gestes, dans l'ordre</h4>
+    <ol class="clics"><li>Ouvrir le résumé généré et le lire à l'écran.</li><li>Pointer les <b>deux vraies décisions</b> : « on part sur une mise en place en novembre », « c'est Sofia qui sera votre interlocutrice ». Elles sont nettes, datées, attribuées.</li><li>Pointer ensuite <b>la phrase ambiguë</b> : « oui pour la formation, enfin faudra qu'on en reparle au budget ». Le résumé la présente comme un accord.</li><li><b>Remonter à la transcription</b> et réécouter le passage. On entend l'hésitation, et la condition qui suit.</li><li><b>Corriger le point à l'écran</b> : ce n'est pas une décision, c'est une intention sous condition budgétaire. La déplacer dans « points en suspens ».</li><li>Dire la règle : <b>tout ce qui a un « enfin », un « faudra voir » ou un « on en reparle » n'est pas une décision</b>, quoi qu'en dise le résumé.</li></ol>
+    <div class="tip err"><span class="tip-i">🎯</span><div class="tip-c"><strong>C'est la leçon la plus utile du chapitre</strong>
+Elle ne tient que si la phrase ambiguë a vraiment été dite dans l'enregistrement, telle quelle. La
+vérifier dans la transcription <strong>avant</strong> de lancer la prise.</div></div>
+    <p class="hc2"><b>Hors champ :</b> Les analyses commerciales et les scores de conversation. On trie décisions et intentions, c'est la seule chose qui compte ici.</p>
+  </div>
+</div>
+<div class="lec" id="L06">
+  <div class="lec-h"><span class="lec-n">06</span><span class="lec-t">Le compte rendu à envoyer</span><span class="lec-d">7 min</span></div>
+  <div class="lec-b">
+    <div class="say"><div class="sl">La phrase d'ouverture</div><p>« Envoyé dans l'heure, ça vaut dix relances. »</p></div>
+    <dl class="ecr"><dt>À l'écran</dt><dd>Le compte rendu généré, puis le brouillon de mail.</dd><dt>Données</dt><dd>Le <b>modèle de compte rendu</b>, téléchargeable plus haut. Et les trois actions de 11:00, dont <b>une sans échéance</b> et <b>une sans propriétaire</b>.</dd><dt>La structure</dt><dd>Décisions · Actions, avec <b>qui</b> et <b>pour quand</b> · Points en suspens.</dd></dl>
+    <h4>Les gestes, dans l'ordre</h4>
+    <ol class="clics"><li>Générer le compte rendu et le mettre dans la structure du modèle.</li><li><b>Corriger deux points à l'écran.</b> Le premier : l'action <b>sans échéance</b> — lui en donner une, ou dire explicitement qu'elle n'en a pas. Le second : l'action <b>sans propriétaire</b> — lui en attribuer un.</li><li>Dire pourquoi ces deux corrections comptent : une action sans propriétaire et sans date n'est pas une action, c'est une intention de plus.</li><li>Vérifier que la phrase ambiguë de la leçon 5 est bien passée en <b>points en suspens</b>, et pas en décisions.</li><li>Préparer le mail <b>en brouillon</b>, et le relire à l'écran.</li><li>Dire la règle, la même que chez Make : <b>rien ne part sans relecture</b>.</li></ol>
+    
+    <p class="hc2"><b>Hors champ :</b> L'envoi du compte rendu. Il reste en brouillon, relu à l'écran — comme toujours dans ce parcours.</p>
+  </div>
+</div>
+<h3>Partie 3 — Fiabiliser et livrer</h3>
+
+<div class="lec" id="L07">
+  <div class="lec-h"><span class="lec-n">07</span><span class="lec-t">Limites et checklist</span><span class="lec-d">6 min</span></div>
+  <div class="lec-b">
+    <div class="say"><div class="sl">La phrase d'ouverture</div><p>« Un enregistrement de rendez-vous, c'est une donnée sensible. »</p></div>
+    <dl class="ecr"><dt>À l'écran</dt><dd>Les réglages du compte, puis un enregistrement de test qu'on supprime.</dd><dt>Données</dt><dd>Le <b>passage personnel de 13:00</b> — l'arrêt de travail évoqué par un participant.</dd><dt>L'écart à nommer</dt><dd>Les durées de conservation <b>par défaut de l'outil se comptent en années</b> — deux ans sur les plans courants — là où la leçon 2 a posé un plafond de <b>six mois</b> et une suppression bien plus rapide.</dd></dl>
+    <h4>Les gestes, dans l'ordre</h4>
+    <ol class="clics"><li>Dire qui a accès aux enregistrements dans l'espace.</li><li><b>Montrer où se lit la durée de conservation par défaut</b>, et la comparer à voix haute avec ce qui a été posé en leçon 2. L'écart est le sujet de la leçon.</li><li>Dire que le réglage automatique de ces durées passe par l'option payante <b>« Gouvernance »</b>, que l'apprenant n'aura pas sur son essai.</li><li>En tirer la conséquence pratique, et c'est elle qu'on enseigne : <b>la suppression se fait à la main</b>, et elle entre dans la routine de fin de dossier — le compte rendu est rangé, l'enregistrement est supprimé.</li><li><b>Supprimer un enregistrement à la main, de bout en bout</b>, sans accélérer.</li><li>Finir sur le <b>passage personnel</b> : revenir à 13:00, et dire ce qu'on en fait. <b>Ce qui est sensible ne se recopie pas dans le compte rendu.</b> Montrer que le compte rendu de la leçon 6 n'en contient aucune trace.</li><li>Dérouler la checklist.</li></ol>
+    <div class="tip err"><span class="tip-i">🚫</span><div class="tip-c"><strong>Ne pas filmer un réglage de purge automatique</strong>
+Même si le compte de tournage y a accès. L'apprenant, lui, ne l'aura pas sur son essai. Montrer le
+<strong>geste manuel</strong>, c'est celui qu'il refera.</div></div>
+    <p class="hc2"><b>Hors champ :</b> Le réglage de purge automatique, qui demande une option payante que l'apprenant n'a pas. On montre la suppression à la main, celle qu'il refera.</p>
+  </div>
+</div></div>
+</div>
+<div class="footer">
+  <p><strong>🎙️ Livret de tournage — Leexi</strong></p>
+  <p>Studeria · parcours Focus outils · octobre 2026</p>
+</div>
+</div></div>
+
+<script>
+const links=document.querySelectorAll('.sidebar a');
+const chapters=document.querySelectorAll('.ch');
+function updateActive(){
+  let current='';
+  chapters.forEach(ch=>{if(ch.getBoundingClientRect().top<=150)current=ch.id;});
+  links.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+current);});
+}
+window.addEventListener('scroll',updateActive);updateActive();
+links.forEach(l=>l.addEventListener('click',()=>{
+  if(window.innerWidth<=800)document.querySelector('.sidebar').classList.remove('open');
+}));
+let DL=null;
+(async()=>{
+  try{DL=await window.claude.use("downloads");}catch(e){DL=null;}
+  if(!DL)document.querySelectorAll(".dlb").forEach(b=>{
+    b.disabled=true;
+    const s=b.querySelector(".dlb-t span");
+    if(s)s.textContent="T\u00e9l\u00e9chargement indisponible dans cette vue \u2014 demander le fichier \u00e0 Massylia";
+  });
+})();
+async function tele(btn){
+  if(!DL)return;
+  const b64=btn.querySelector("script").textContent.trim();
+  const bin=atob(b64);const u=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+  const lbl=btn.querySelector(".dlb-t b");const o=lbl.textContent;
+  try{
+    await DL.save({filename:btn.dataset.nom,data:new Blob([u])});
+    lbl.textContent="Enregistr\u00e9 \u2713";
+  }catch(e){
+    lbl.textContent=(e&&e.code==="declined")?o:"Non enregistr\u00e9";
+  }
+  setTimeout(()=>{lbl.textContent=o;},2200);
+}
+function cp(btn,id){
+  const t=document.getElementById(id).textContent;
+  const done=()=>{const o=btn.textContent;btn.textContent='Copie\u0301 \u2713';btn.classList.add('done');
+    setTimeout(()=>{btn.textContent=o;btn.classList.remove('done');},1600);};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(done).catch(()=>fb());}
+  else fb();
+  function fb(){const a=document.createElement('textarea');a.value=t;a.style.position='fixed';
+    a.style.opacity='0';document.body.appendChild(a);a.select();
+    try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(a);}
+}
+</script>
+
+</body></html>
